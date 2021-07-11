@@ -15,15 +15,14 @@
         <%= button_to 'Logout', logout_path, method: :delete, class: "btn btn-outline-success my-2 my-sm-0" %>
     </div>
 </nav>
-<div class="container">
+<div class="container mt-3">
+    <h2> Raise A Doubt </h2>
     <div class="card">
         <div class="card-body">
             <%= form_with url: raiseDoubt_path, :html => {:class => "form-signin"} do |f| %>
-            <div class="alert-warning mb-2"><%= notice %></div>
-            <div class="alert-danger mb-2"><%= alert %></div>
             <%= f.text_field :title, id: 'title', class: 'form-control', placeholder: 'Title', required:''  %>
             <%= f.text_area :description, id: 'description', class: 'form-control', placeholder: 'Description', required:''  %>
-            <%= f.submit 'Submit', class: 'tn btn-lg btn-primary btn-block' %>
+            <%= f.submit 'Submit', class: 'tn btn-sm btn-primary btn-block' %>
             <% end %>
         </div>
     </div>

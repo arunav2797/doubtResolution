@@ -5,6 +5,7 @@ class LoginController < ApplicationController
     if user.present? && user.authenticate(params[:password])
       session[:user_id] = user.id
       session[:role] = user.role
+      session[:email] = user.email
       redirect_to home_path
     else
       flash.now[:alert] = 'Invalid email or password'

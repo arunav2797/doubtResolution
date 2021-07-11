@@ -8,5 +8,9 @@ Rails.application.routes.draw do
   get 'home', to: 'home#index'
   get 'doubtForm', to: 'doubt#doubtForm'
   post 'raiseDoubt', to: 'doubt#raise_doubt'
+  post 'addComment', to: 'comment#add'
+  get 'doubt_detail', to: 'doubt#doubt_detail'
+  post 'accept_doubt', to: 'doubt#accept_doubt'
+  post 'answerDoubt', to: 'doubt#answer_doubt'
 
 end

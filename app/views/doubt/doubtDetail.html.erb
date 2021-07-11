@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <img src="https://www.codingninjas.com/assets-landing/images/CNLOGO.svg" width="7%" height="7%" class="d-inline-block align-top" alt="">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <%= link_to "Solve Doubt", home_path, class: "nav-link" %>
+            </li>
+        </ul>
+        <%= button_to 'Logout', logout_path, method: :delete, class: "btn btn-outline-success my-2 my-sm-0" %>
+    </div>
+</nav>
+<div class="container mt-3">
+    <h2> Home </h2>
+    <div class="alert-warning mt-2 mb-2"><%= notice %></div>
+    <div class="alert-danger mt-2 mb-2"><%= alert %></div>
+    <div class="row col-12">
+        <div class="col-7">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5><%= @doubt.title%></h5>
+                    <h6><%= @doubt.description%></h6>
+                </div>
+                <div class="card-body">
+                    <% @doubt.comments.each do |comment| %>
+                    <div class="card">
+                        <div class="card-body">
+                            <h6><%= comment.email%> : <%= comment.comment%></h6>
+                        </div>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h6>Answer</h6>
+                    <%= form_with url: answerDoubt_path, :html => {:class => "form-signin"} do |f| %>
+                    <%= f.text_area :solution, id: 'solution', class: 'form-control', placeholder: 'Solution' %>
+                    <%= f.hidden_field :doubt_id, value: @doubt.id %>
+                    <%= f.submit 'Submit', class: 'tn btn-sm btn-primary btn-block' %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

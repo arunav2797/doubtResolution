@@ -1,4 +1,4 @@
 class Doubt < ApplicationRecord
-    has_many :doubts, dependent: :destroy
-    enum status: [:Reviewed, :Submitted]
+    enum status: [:Reviewed, :Submitted, :Accepted]
+    has_many :comments, dependent: :destroy
 end

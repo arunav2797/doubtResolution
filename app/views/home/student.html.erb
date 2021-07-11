@@ -6,7 +6,7 @@
         <img src="https://www.codingninjas.com/assets-landing/images/CNLOGO.svg" width="7%" height="7%" class="d-inline-block align-top" alt="">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
+                <%= link_to "Home", home_path, class: "nav-link" %>
             </li>
             <li class="nav-item">
                 <%= link_to "Raise Doubt", doubtForm_path, class: "nav-link" %>
@@ -15,15 +15,35 @@
         <%= button_to 'Logout', logout_path, method: :delete, class: "btn btn-outline-success my-2 my-sm-0" %>
     </div>
 </nav>
-<div class="container">
-<% @doubts.each do |doubt| %>
-    <div class="card-header">
-    <%= doubt.title%>
-    </div>
-    <div class="card">
+<div class="container mt-3">
+    <h2> Home </h2>
+    <div class="alert-warning mt-2 mb-2"><%= notice %></div>
+    <div class="alert-danger mt-2 mb-2"><%= alert %></div>
+    <% @doubts.each do |doubt| %>
+    <div class="card mt-3">
+        <div class="card-header">
+            <h5><%= doubt.title%></h5>
+            <h6><%= doubt.description%></h6>
+            <% if doubt.status == "Reviewed" %>
+            <br><br>
+            <h5>Answer</h5>
+            <h6><%=doubt.solution%></h6>
+            <%end%>
+        </div>
         <div class="card-body">
-            <%= doubt.description%>
+            <%= form_with url: addComment_path, :html => {:class => "form-signin"} do |f| %>
+            <%= f.text_area :comment, id: 'comment', class: 'form-control', placeholder: 'Comment' %>
+            <%= f.hidden_field :doubt_id, value: doubt.id %>
+            <%= f.submit 'Submit', class: 'tn btn-sm btn-primary btn-block' %>
+            <% end %>
+            <% doubt.comments.each do |comment| %>
+            <div class="card">
+                <div class="card-body">
+                    <h6><%= comment.email%> : <%= comment.comment%></h6>
+                </div>
+            </div>
+            <% end %>
         </div>
     </div>
-<% end %>
+    <% end %>
 </div>
