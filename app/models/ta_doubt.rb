@@ -1,0 +1,2 @@
+class TaDoubt < ApplicationRecord
+end

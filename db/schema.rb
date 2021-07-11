@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_10_175029) do
+ActiveRecord::Schema.define(version: 2021_07_11_093858) do
+
+  create_table "doubts", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "status"
+    t.index ["user_id"], name: "index_doubts_on_user_id"
+  end
+
+  create_table "ta_doubts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "doubt_id"
+    t.index ["doubt_id"], name: "index_ta_doubts_on_doubt_id"
+    t.index ["user_id"], name: "index_ta_doubts_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
@@ -20,4 +39,7 @@ ActiveRecord::Schema.define(version: 2021_07_10_175029) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "doubts", "users"
+  add_foreign_key "ta_doubts", "doubts"
+  add_foreign_key "ta_doubts", "users"
 end
