@@ -17,7 +17,7 @@
     <div class="alert-warning mt-2 mb-2"><%= notice %></div>
     <div class="alert-danger mt-2 mb-2"><%= alert %></div>
     <% @doubts.each do |doubt| %>
-    <% if doubt.status == "Submitted" || (@doubt_assoc.find_by(doubt_id: doubt.id, user_id: session[:user_id]) && doubt.status != "Resolved")%>
+    <% if (doubt.status == "Submitted" || @doubt_assoc.find_by(doubt_id: doubt.id, user_id: session[:user_id], status: "Accepted")) && !@doubt_assoc.find_by(doubt_id: doubt.id, user_id: session[:user_id], status: "Escalated")%>
     <div class="card mt-3 col-7">
         <div class="card-header">
             <div class="row col-12">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_12_112453) do
+ActiveRecord::Schema.define(version: 2021_07_12_171022) do
 
   create_table "comments", force: :cascade do |t|
     t.string "comment", null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_112453) do
     t.integer "status"
     t.string "solution"
     t.datetime "accepted_at"
+    t.datetime "resolved_at"
     t.index ["user_id"], name: "index_doubts_on_user_id"
   end
 
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_112453) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.integer "doubt_id"
+    t.integer "status"
     t.index ["doubt_id"], name: "index_ta_doubts_on_doubt_id"
     t.index ["user_id"], name: "index_ta_doubts_on_user_id"
   end

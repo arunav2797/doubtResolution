@@ -44,7 +44,7 @@
                     <div class="row col-12">
                         <%= f.submit 'Submit', class: 'tn btn-sm btn-primary btn-block col m-2' %>
                         <% end %>
-                        <% if @doubt.status != "Escalated" %>
+                        <% if TaDoubt.where(doubt_id: @doubt.id, status: "Escalated").count < 1 %>
                         <%= form_with url: escalateDoubt_path, :html => {:class => "form-signin col m-2"} do |f| %>
                         <%= f.hidden_field :doubt_id, value: @doubt.id %>
                         <%= f.submit 'Escalate', class: 'tn btn-sm btn-primary btn-block col-12' %>

@@ -4,11 +4,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <img src="https://www.codingninjas.com/assets-landing/images/CNLOGO.svg" width="7%" height="7%" class="d-inline-block align-top" alt="">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <%= link_to "Solve Doubt", home_path, class: "nav-link" %>
-            </li>
-        </ul>
         <%= button_to 'Logout', logout_path, method: :delete, class: "btn btn-outline-success my-2 my-sm-0" %>
     </div>
 </nav>
@@ -18,7 +13,7 @@
         <div class="card col m-3">
             <div class="card-body">
                 <h1><%= @no_of_doubts %></h1>
-                <p>Doubts</p>
+                <p>Total Doubts</p>
             </div>
         </div>
         <div class="card col m-3">
@@ -39,7 +34,11 @@
                 <% Doubt.where(status: "Resolved").each do |time| %>
                 <% @total = @total + ((time.updated_at - time.accepted_at) / 1.minute).round %>
                 <%end%>
+                <%if Doubt.where(status: "Resolved").count > 0 %>
                 <h1><%= @total/Doubt.where(status: "Resolved").count %></h1>
+                <%else%>
+                <h1>0</h1>
+                <%end%>
                 <p>Average resolution time</p>
             </div>
         </div>
@@ -53,13 +52,19 @@
                     <div class="col-12"><%= ta.email %></div>
                     <div class="row col-12 mt-2">
                         <div class="col">Doubts Accepted: <%= TaDoubt.where(user_id: ta.id).count %></div>
-                        <div class="col">Doubts Resolved: <%= Doubt.joins(:TaDoubt).where(doubts: {status: "Resolved"}, TaDoubt: {user_id: ta.id}).count %></div>
-                        <div class="col">Doubts Escalated: <%= TaDoubt.where(user_id: ta.id).count - Doubt.joins(:TaDoubt).where(doubts: {status: "Resolved"}, TaDoubt: {user_id: ta.id}).count %></div>
+                        <div class="col">Doubts Resolved: <%= TaDoubt.where(user_id: ta.id, status: "Resolved").count %></div>
+                        <div class="col">Doubts Escalated: <%= TaDoubt.where(user_id: ta.id, status: "Escalated").count %></div>
                         <% @total = 0%>
-                        <% Doubt.joins(:TaDoubt).where(doubts: {status: "Resolved"}, TaDoubt: {user_id: ta.id}).each do |time| %>
-                        <% @total = @total + ((time.updated_at - time.accepted_at) / 1.minute).round %>
+                        <% Doubt.joins(:TaDoubt).where(TaDoubt: {user_id: ta.id, status: "Resolved"}).each do |time| %>
+                        <% @total = @total + ((time.resolved_at - time.accepted_at) / 1.minute).round %>
                         <%end%>
-                        <div class="col">Average resolution time: <%= @total/Doubt.joins(:TaDoubt).where(doubts: {status: "Resolved"}, TaDoubt: {user_id: ta.id}).count %></div>
+                        <div class="col">Average resolution time:
+                        <%if Doubt.joins(:TaDoubt).where(TaDoubt: {user_id: ta.id, status: "Resolved"}).count > 0%>
+                            <%= @total/Doubt.joins(:TaDoubt).where(TaDoubt: {user_id: ta.id, status: "Resolved"}).count %>
+                        <%else%>
+                            nil
+                        <%end%>
+                        </div>
                     </div>
                 </div>
             </div>
