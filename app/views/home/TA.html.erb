@@ -17,12 +17,12 @@
     <div class="alert-warning mt-2 mb-2"><%= notice %></div>
     <div class="alert-danger mt-2 mb-2"><%= alert %></div>
     <% @doubts.each do |doubt| %>
-    <% if doubt.status == "Submitted" || (@doubt_assoc.find_by(doubt_id: doubt.id, user_id: session[:user_id]) && doubt.status != "Reviewed")%>
+    <% if doubt.status == "Submitted" || (@doubt_assoc.find_by(doubt_id: doubt.id, user_id: session[:user_id]) && doubt.status != "Resolved")%>
     <div class="card mt-3 col-7">
         <div class="card-header">
             <div class="row col-12">
                 <h6 class="col"><%= doubt.title%></h6>
-                <% if @doubt_assoc.find_by(doubt_id: doubt.id, user_id: session[:user_id]) && doubt.status != "Reviewed"%>
+                <% if @doubt_assoc.find_by(doubt_id: doubt.id, user_id: session[:user_id]) && doubt.status != "Resolved"%>
                 <%= link_to "View", doubt_detail_path(doubt_id: doubt.id), class: 'tn text-center btn-sm btn-primary btn-block col-1' %>
                 <%end%>
                 <%if doubt.status == 'Submitted'%>

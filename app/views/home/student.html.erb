@@ -31,7 +31,7 @@
                     <div class="alert-success p-1"><%=doubt.status%></div>
                 </div>
             </div>
-            <% if doubt.status == "Reviewed" %>
+            <% if doubt.status == "Resolved" %>
             <div class="col-12 mt-3">
                 <h5>Answer</h5>
                 <h6><%=doubt.solution%></h6>
@@ -56,4 +56,5 @@
         </div>
     </div>
     <% end %>
+    <br>
 </div>
