@@ -14,7 +14,7 @@
     <%= f.text_field :email, id: 'email', class: 'form-control', placeholder: 'Email address', required:'' %>
     <%= f.password_field :password, id: 'password', class: 'form-control m-0', placeholder: 'Password', required:'' %>
     <%= f.password_field :password_confirmation, id: 'password_confirmation', class: 'form-control m-0', placeholder: 'Confirm Password', required:'' %>
-    <%= f.select(:role, options_for_select(['Student', "TA", "Teachers"]), {}, {:class => 'form-select mb-2'})  %>
+    <%= f.select(:role, options_for_select(['Student', "TA", "Teacher"]), {}, {:class => 'form-select mb-2'})  %>
     <div class="col-12">
         <%= f.submit 'Sign up', class: 'col-12 btn btn-primary' %>
     </div>
