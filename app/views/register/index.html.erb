@@ -6,22 +6,19 @@
 </head>
 
 <body class="text-center" data-new-gr-c-s-check-loaded="14.989.0" data-gr-ext-installed="">
-    <%= form_with url: sign_in_path, :html => {:class => "form-signin"} do |f| %>
+    <%= form_with url: registered_path, :html => {:class => "form-signin"} do |f| %>
     <img class="mb-4" src="https://www.codingninjas.com/assets-landing/images/CNLOGO.svg" alt="" width="90" height="90">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
     <div class="alert-warning mb-2"><%= notice %></div>
     <div class="alert-danger mb-2"><%= alert %></div>
     <%= f.text_field :email, id: 'email', class: 'form-control', placeholder: 'Email address', required:'' %>
-    <%= f.password_field :password, id: 'password', class: 'form-control', placeholder: 'Password', required:'' %>
-    <div class="row p-0">
-        <div class="col">
-            <%= f.submit 'Sign in', class: 'col-12 btn btn-primary' %>
-        </div>
-        <%end%>
-        <div class="col">
-            <%= button_to 'Sign up', register_path, class: 'col-12 btn btn-secondary' %>
-        </div>
+    <%= f.password_field :password, id: 'password', class: 'form-control m-0', placeholder: 'Password', required:'' %>
+    <%= f.password_field :password_confirmation, id: 'password_confirmation', class: 'form-control m-0', placeholder: 'Confirm Password', required:'' %>
+    <%= f.select(:role, options_for_select(['Student', "TA", "Teachers"]), {}, {:class => 'form-select mb-2'})  %>
+    <div class="col-12">
+        <%= f.submit 'Sign up', class: 'col-12 btn btn-primary' %>
     </div>
+    <%end%>
     <%= yield %>
 </body>
 <style>

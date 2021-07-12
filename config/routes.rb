@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   
   get 'sign_in', to: 'login#new'
   post 'sign_in', to: 'login#create', as: 'log_in'
+  post 'register', to: 'register#index'
+  post 'registered', to: 'register#register'
   delete 'logout', to: 'login#destroy'
   get 'home', to: 'home#index'
   get 'doubtForm', to: 'doubt#doubtForm'
