@@ -17,11 +17,11 @@
 </nav>
 <div class="container mt-3">
     <h2> Raise A Doubt </h2>
-    <div class="card">
+    <div class="card mt-3">
         <div class="card-body">
             <%= form_with url: raiseDoubt_path, :html => {:class => "form-signin"} do |f| %>
-            <%= f.text_field :title, id: 'title', class: 'form-control', placeholder: 'Title', required:''  %>
-            <%= f.text_area :description, id: 'description', class: 'form-control', placeholder: 'Description', required:''  %>
+            <%= f.text_field :title, id: 'title', class: 'form-control mb-2', placeholder: 'Title', required:''  %>
+            <%= f.text_area :description, id: 'description', class: 'form-control mb-2', placeholder: 'Description', required:''  %>
             <%= f.submit 'Submit', class: 'tn btn-sm btn-primary btn-block' %>
             <% end %>
         </div>

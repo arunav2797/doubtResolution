@@ -22,22 +22,32 @@
     <% @doubts.each do |doubt| %>
     <div class="card mt-3">
         <div class="card-header">
-            <h5><%= doubt.title%></h5>
-            <h6><%= doubt.description%></h6>
+            <div class="row col-12">
+                <div class="col-10">
+                    <h5><%= doubt.title%></h5>
+                    <h6><%= doubt.description%></h6>
+                </div>
+                <div class="col text-center">
+                    <div class="alert-success p-1"><%=doubt.status%></div>
+                </div>
+            </div>
             <% if doubt.status == "Reviewed" %>
-            <br><br>
-            <h5>Answer</h5>
-            <h6><%=doubt.solution%></h6>
+            <div class="col-12 mt-3">
+                <h5>Answer</h5>
+                <h6><%=doubt.solution%></h6>
+                <p class="font-italic">Answered by: <%=User.find(TaDoubt.where(doubt_id: doubt.id).pluck(:user_id)).pluck(:email).first%> on <%=doubt.updated_at.in_time_zone('Asia/Kolkata').strftime("%d %b, %y at %I : %M %p")%></p>
+            </div>
             <%end%>
         </div>
         <div class="card-body">
             <%= form_with url: addComment_path, :html => {:class => "form-signin"} do |f| %>
-            <%= f.text_area :comment, id: 'comment', class: 'form-control', placeholder: 'Comment' %>
+            <%= f.text_area :comment, id: 'comment', class: 'form-control', placeholder: 'Comment', required: '' %>
             <%= f.hidden_field :doubt_id, value: doubt.id %>
-            <%= f.submit 'Submit', class: 'tn btn-sm btn-primary btn-block' %>
+            <%= f.submit 'Comment', class: 'tn btn-sm btn-primary btn-block mt-2' %>
             <% end %>
+            <br>
             <% doubt.comments.each do |comment| %>
-            <div class="card">
+            <div class="card mt-1">
                 <div class="card-body">
                     <h6><%= comment.email%> : <%= comment.comment%></h6>
                 </div>
