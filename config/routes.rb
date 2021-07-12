@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   get 'doubt_detail', to: 'doubt#doubt_detail'
   post 'accept_doubt', to: 'doubt#accept_doubt'
   post 'answerDoubt', to: 'doubt#answer_doubt'
+  post 'escalateDoubt', to: 'doubt#escalate_doubt'
 
 end

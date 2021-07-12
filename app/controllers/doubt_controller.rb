@@ -13,10 +13,8 @@ class DoubtController < ApplicationController
   end
 
   def accept_doubt
-    @doubt = Doubt.where(id: params[:doubt_id])
+    @doubt = Doubt.find(params[:doubt_id])
     @doubt.update(status: "Accepted")
-    @doubt_assoc = TaDoubt.where(doubt_id: params[:doubt_id])
-    @doubt_assoc.update(user_id: session[:user_id])
     redirect_to doubt_detail_path(doubt_id: params[:doubt_id])
   end
 
@@ -26,8 +24,18 @@ class DoubtController < ApplicationController
   end
 
   def answer_doubt
+    @doubt_assoc = TaDoubt.where(doubt_id: params[:doubt_id])
+    @doubt_assoc.update(user_id: session[:user_id])
     @doubt = Doubt.where(id: params[:doubt_id])
     @doubt.update(solution: params[:solution], status: "Reviewed")
+    redirect_to home_path
+  end
+
+  def escalate_doubt
+    @doubt_assoc = TaDoubt.where(doubt_id: params[:doubt_id])
+    @id = User.where(role: "TA").and(User.where.not(id: session[:user_id])).pluck(:id).sample
+    @doubt_assoc.update(user_id: @id)
+    Doubt.update(status: "Escalated").where(id: params[:doubt_id])
     redirect_to home_path
   end
 

@@ -39,10 +39,18 @@
                 <div class="card-body">
                     <h6>Answer</h6>
                     <%= form_with url: answerDoubt_path, :html => {:class => "form-signin"} do |f| %>
-                    <%= f.text_area :solution, id: 'solution', class: 'form-control', placeholder: 'Solution' %>
-                    <%= f.hidden_field :doubt_id, value: @doubt.id %>
-                    <%= f.submit 'Submit', class: 'tn btn-sm btn-primary btn-block' %>
-                    <% end %>
+                        <%= f.text_area :solution, id: 'solution', class: 'form-control', placeholder: 'Solution' %>
+                        <%= f.hidden_field :doubt_id, value: @doubt.id %>
+                    <div class="row col-12">
+                        <%= f.submit 'Submit', class: 'tn btn-sm btn-primary btn-block col m-2' %>
+                        <% end %>
+                        <% if @doubt.status != "Escalated" %>
+                        <%= form_with url: escalateDoubt_path, :html => {:class => "form-signin col m-2"} do |f| %>
+                        <%= f.hidden_field :doubt_id, value: @doubt.id %>
+                        <%= f.submit 'Escalate', class: 'tn btn-sm btn-primary btn-block col-12' %>
+                        <% end %>
+                        <% end %>
+                    </div>
                 </div>
             </div>
         </div>
